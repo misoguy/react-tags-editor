@@ -11,10 +11,24 @@ class PropsWrapper extends Component {
       this.setState({tags:['test','tqewa','qwetasdf']});
     },2000);
   }
-  
+  handleGetTags = () => {
+    console.log(this.refs.component);
+    const t = this.refs.component.getTags();
+    console.log(t);
+    this.setState({t});
+  }
   render() {
     return (
-      <NewComponent tags={this.state.tags} />
+      <div>
+        <NewComponent
+          ref="component"
+          tags={this.state.tags}
+          delimiterChars={[',']}
+        />
+          {/*readOnly={true}*/}
+        <button onClick={this.handleGetTags}>TEST</button>
+        {this.state.t}
+      </div>
     );
   }
 }

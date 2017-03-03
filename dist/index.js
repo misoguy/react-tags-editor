@@ -17252,7 +17252,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var ENTER_KEY = 13;
 var TAB_KEY = 9;
-var COMMA_KEY = 188;
 var BACKSPACE_KEY = 8;
 
 var ReactTagsEditor = function (_Component) {
@@ -17269,26 +17268,33 @@ var ReactTagsEditor = function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ReactTagsEditor.__proto__ || Object.getPrototypeOf(ReactTagsEditor)).call.apply(_ref, [this].concat(args))), _this), _this.state = { inputValue: '', tags: _this.props.tags || [] }, _this.handleInsertTag = function () {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ReactTagsEditor.__proto__ || Object.getPrototypeOf(ReactTagsEditor)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      inputValue: '',
+      tags: _this.props.tags || []
+    }, _this.getTags = function () {
       var _this2;
 
-      return (_this2 = _this).__handleInsertTag__REACT_HOT_LOADER__.apply(_this2, arguments);
-    }, _this.handleInputChange = function () {
+      return (_this2 = _this).__getTags__REACT_HOT_LOADER__.apply(_this2, arguments);
+    }, _this.handleInsertTag = function () {
       var _this3;
 
-      return (_this3 = _this).__handleInputChange__REACT_HOT_LOADER__.apply(_this3, arguments);
-    }, _this.handleDeleteLastTag = function () {
+      return (_this3 = _this).__handleInsertTag__REACT_HOT_LOADER__.apply(_this3, arguments);
+    }, _this.handleInputChange = function () {
       var _this4;
 
-      return (_this4 = _this).__handleDeleteLastTag__REACT_HOT_LOADER__.apply(_this4, arguments);
-    }, _this.handleDeleteTag = function () {
+      return (_this4 = _this).__handleInputChange__REACT_HOT_LOADER__.apply(_this4, arguments);
+    }, _this.handleDeleteLastTag = function () {
       var _this5;
 
-      return (_this5 = _this).__handleDeleteTag__REACT_HOT_LOADER__.apply(_this5, arguments);
-    }, _this.handleKeyDown = function () {
+      return (_this5 = _this).__handleDeleteLastTag__REACT_HOT_LOADER__.apply(_this5, arguments);
+    }, _this.handleDeleteTag = function () {
       var _this6;
 
-      return (_this6 = _this).__handleKeyDown__REACT_HOT_LOADER__.apply(_this6, arguments);
+      return (_this6 = _this).__handleDeleteTag__REACT_HOT_LOADER__.apply(_this6, arguments);
+    }, _this.handleKeyDown = function () {
+      var _this7;
+
+      return (_this7 = _this).__handleKeyDown__REACT_HOT_LOADER__.apply(_this7, arguments);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -17298,6 +17304,11 @@ var ReactTagsEditor = function (_Component) {
       if (nextProps.tags !== this.props.tags) {
         this.setState({ tags: nextProps.tags });
       }
+    }
+  }, {
+    key: '__getTags__REACT_HOT_LOADER__',
+    value: function __getTags__REACT_HOT_LOADER__() {
+      return this.state.tags;
     }
   }, {
     key: '__handleInsertTag__REACT_HOT_LOADER__',
@@ -17311,7 +17322,17 @@ var ReactTagsEditor = function (_Component) {
   }, {
     key: '__handleInputChange__REACT_HOT_LOADER__',
     value: function __handleInputChange__REACT_HOT_LOADER__(e) {
-      if (__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.includes([','], e.target.value)) return;
+      var inputValue = e.target.value;
+      var shouldDelimit = false;
+      __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.forEach(this.props.delimiterChars, function (c) {
+        if (__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.includes(inputValue, c)) {
+          shouldDelimit = true;
+          return false;
+        }
+      });
+      if (shouldDelimit) {
+        return this.handleInsertTag();
+      }
       this.setState({ inputValue: e.target.value });
     }
   }, {
@@ -17335,7 +17356,10 @@ var ReactTagsEditor = function (_Component) {
     value: function __handleKeyDown__REACT_HOT_LOADER__(e) {
       var inputValue = this.state.inputValue;
 
-      if (__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.includes(this.props.delimiters, e.keyCode)) {
+      if (__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.includes(this.props.delimiterKeys, e.keyCode) && !__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.isEmpty(inputValue)) {
+        if (e.keyCode === TAB_KEY) {
+          e.preventDefault();
+        }
         this.handleInsertTag();
       }
       if (__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.isEmpty(inputValue) && BACKSPACE_KEY === e.keyCode) {
@@ -17345,30 +17369,48 @@ var ReactTagsEditor = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this7 = this;
+      var _this8 = this;
 
       var _state2 = this.state,
           tags = _state2.tags,
           inputValue = _state2.inputValue;
+      var readOnly = this.props.readOnly;
 
+      if (readOnly) {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: this.props.className },
+          __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.map(tags, function (tag, index) {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'span',
+              { key: index, className: 'react-tags' },
+              tag
+            );
+          })
+        );
+      }
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        null,
-        __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.map(tags, function (t, i) {
+        { className: this.props.className },
+        __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.map(tags, function (tag, index) {
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'span',
-            { key: i },
-            t,
+            { key: index, className: 'react-tags' },
+            tag,
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'button',
-              { onClick: function onClick() {
-                  return _this7.handleDeleteTag(i);
-                } },
+              {
+                className: 'react-tags-close-btn',
+                onClick: function onClick() {
+                  return _this8.handleDeleteTag(index);
+                }
+              },
               'x'
             )
           );
         }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+          className: 'react-tags-input',
           type: 'text',
           onKeyDown: this.handleKeyDown,
           onChange: this.handleInputChange,
@@ -17383,11 +17425,17 @@ var ReactTagsEditor = function (_Component) {
 
 ReactTagsEditor.propTypes = {
   tags: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].arrayOf(__WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string).isRequired,
-  delimiters: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].arrayOf(__WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].number).isRequired
+  delimiterKeys: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].arrayOf(__WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].number).isRequired,
+  delimiterChars: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].arrayOf(__WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string),
+  className: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string,
+  readOnly: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].bool
 };
 ReactTagsEditor.defaultProps = {
   tags: [],
-  delimiters: [ENTER_KEY, TAB_KEY, COMMA_KEY]
+  delimiterKeys: [ENTER_KEY, TAB_KEY],
+  delimiterChars: [],
+  className: 'react-tags-editor',
+  readOnly: false
 };
 var _default = ReactTagsEditor;
 /* harmony default export */ __webpack_exports__["default"] = _default;
@@ -17401,8 +17449,6 @@ var _temp2 = function () {
   __REACT_HOT_LOADER__.register(ENTER_KEY, 'ENTER_KEY', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
 
   __REACT_HOT_LOADER__.register(TAB_KEY, 'TAB_KEY', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
-
-  __REACT_HOT_LOADER__.register(COMMA_KEY, 'COMMA_KEY', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
 
   __REACT_HOT_LOADER__.register(BACKSPACE_KEY, 'BACKSPACE_KEY', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
 

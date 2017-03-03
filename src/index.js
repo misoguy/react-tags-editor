@@ -9,9 +9,9 @@ import PropsWrapper from './containers/PropsWrapper';
 const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
-      <Component/>
+      <Component />
     </AppContainer>,
-    document.getElementById('root')
+    document.getElementById('root'),
   );
 };
 
@@ -20,6 +20,6 @@ render(PropsWrapper);
 // Hot Module Replacement API
 if (module.hot) {
   module.hot.accept('./containers/PropsWrapper', () => {
-    render(PropsWrapper)
+    render(PropsWrapper);
   });
 }

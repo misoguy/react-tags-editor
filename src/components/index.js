@@ -3,21 +3,29 @@ import _ from 'lodash';
 
 const ENTER_KEY = 13;
 const TAB_KEY = 9;
-const COMMA_KEY = 188;
 const BACKSPACE_KEY = 8;
 
 export default class ReactTagsEditor extends Component {
   static propTypes = {
     tags: PropTypes.arrayOf(PropTypes.string).isRequired,
-    delimiters: PropTypes.arrayOf(PropTypes.number).isRequired,
+    delimiterKeys: PropTypes.arrayOf(PropTypes.number).isRequired,
+    delimiterChars: PropTypes.arrayOf(PropTypes.string),
+    className: PropTypes.string,
+    readOnly: PropTypes.bool,
   }
 
   static defaultProps = {
     tags: [],
-    delimiters: [ENTER_KEY, TAB_KEY, COMMA_KEY],
+    delimiterKeys: [ENTER_KEY, TAB_KEY],
+    delimiterChars: [],
+    className: 'react-tags-editor',
+    readOnly: false,
   }
 
-  state = { inputValue: '', tags: this.props.tags || [] }
+  state = {
+    inputValue: '',
+    tags: this.props.tags || [],
+  }
 
   componentWillUpdate(nextProps) {
     if (nextProps.tags !== this.props.tags) {
@@ -25,13 +33,25 @@ export default class ReactTagsEditor extends Component {
     }
   }
 
+  getTags = () => this.state.tags;
+
   handleInsertTag = () => {
     const { tags, inputValue } = this.state;
     this.setState({ tags: _.concat(tags, inputValue), inputValue: '' });
   }
 
   handleInputChange = (e) => {
-    if (_.includes([','], e.target.value)) return;
+    const inputValue = e.target.value;
+    let shouldDelimit = false;
+    _.forEach(this.props.delimiterChars, (c) => {
+      if (_.includes(inputValue, c)) {
+        shouldDelimit = true;
+        return false;
+      }
+    });
+    if (shouldDelimit) {
+      return this.handleInsertTag();
+    }
     this.setState({ inputValue: e.target.value });
   }
 
@@ -47,7 +67,10 @@ export default class ReactTagsEditor extends Component {
 
   handleKeyDown = (e) => {
     const { inputValue } = this.state;
-    if (_.includes(this.props.delimiters, e.keyCode)) {
+    if (_.includes(this.props.delimiterKeys, e.keyCode) && !_.isEmpty(inputValue)) {
+      if (e.keyCode === TAB_KEY) {
+        e.preventDefault();
+      }
       this.handleInsertTag();
     }
     if (_.isEmpty(inputValue) && BACKSPACE_KEY === e.keyCode) {
@@ -57,16 +80,35 @@ export default class ReactTagsEditor extends Component {
 
   render() {
     const { tags, inputValue } = this.state;
+    const { readOnly } = this.props;
+    if (readOnly) {
+      return (
+        <div className={this.props.className}>
+          {
+            _.map(tags, (tag, index) =>
+              <span key={index} className="react-tags">
+                {tag}
+              </span>)
+          }
+        </div>
+      );
+    }
     return (
-      <div>
+      <div className={this.props.className}>
         {
-          _.map(tags, (t, i) =>
-            <span key={i}>{t}
-              <button onClick={() => this.handleDeleteTag(i)}>x</button>
-            </span>,
-          )
+          _.map(tags, (tag, index) =>
+            <span key={index} className="react-tags">
+              {tag}
+              <button
+                className="react-tags-close-btn"
+                onClick={() => this.handleDeleteTag(index)}
+              >
+                x
+              </button>
+            </span>)
         }
         <input
+          className="react-tags-input"
           type="text"
           onKeyDown={this.handleKeyDown}
           onChange={this.handleInputChange}
