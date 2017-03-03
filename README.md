@@ -1,2 +1,2 @@
-# react-tag-editor
-React Tag Editor
+# react-tags-editor
+React Tags Editor
