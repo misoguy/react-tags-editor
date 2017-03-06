@@ -12,6 +12,7 @@ export default class ReactTagsEditor extends Component {
     delimiterChars: PropTypes.arrayOf(PropTypes.string),
     className: PropTypes.string,
     readOnly: PropTypes.bool,
+    placeholder: PropTypes.string,
   }
 
   static defaultProps = {
@@ -20,6 +21,7 @@ export default class ReactTagsEditor extends Component {
     delimiterChars: [],
     className: 'react-tags-editor',
     readOnly: false,
+    placeholder: '',
   }
 
   state = {
@@ -80,7 +82,7 @@ export default class ReactTagsEditor extends Component {
 
   render() {
     const { tags, inputValue } = this.state;
-    const { readOnly } = this.props;
+    const { readOnly, placeholder } = this.props;
     if (readOnly) {
       return (
         <div className={this.props.className}>
@@ -113,6 +115,7 @@ export default class ReactTagsEditor extends Component {
           onKeyDown={this.handleKeyDown}
           onChange={this.handleInputChange}
           value={inputValue}
+          placeholder={placeholder}
         />
       </div>
     );

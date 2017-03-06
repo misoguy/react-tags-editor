@@ -24,6 +24,7 @@ class PropsWrapper extends Component {
           ref="component"
           tags={this.state.tags}
           delimiterChars={[',']}
+          placeholder={'test'}
         />
           {/*readOnly={true}*/}
         <button onClick={this.handleGetTags}>TEST</button>

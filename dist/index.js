@@ -17374,7 +17374,9 @@ var ReactTagsEditor = function (_Component) {
       var _state2 = this.state,
           tags = _state2.tags,
           inputValue = _state2.inputValue;
-      var readOnly = this.props.readOnly;
+      var _props = this.props,
+          readOnly = _props.readOnly,
+          placeholder = _props.placeholder;
 
       if (readOnly) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -17414,7 +17416,8 @@ var ReactTagsEditor = function (_Component) {
           type: 'text',
           onKeyDown: this.handleKeyDown,
           onChange: this.handleInputChange,
-          value: inputValue
+          value: inputValue,
+          placeholder: placeholder
         })
       );
     }
@@ -17428,14 +17431,16 @@ ReactTagsEditor.propTypes = {
   delimiterKeys: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].arrayOf(__WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].number).isRequired,
   delimiterChars: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].arrayOf(__WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string),
   className: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string,
-  readOnly: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].bool
+  readOnly: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].bool,
+  placeholder: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string
 };
 ReactTagsEditor.defaultProps = {
   tags: [],
   delimiterKeys: [ENTER_KEY, TAB_KEY],
   delimiterChars: [],
   className: 'react-tags-editor',
-  readOnly: false
+  readOnly: false,
+  placeholder: ''
 };
 var _default = ReactTagsEditor;
 /* harmony default export */ __webpack_exports__["default"] = _default;
@@ -17446,15 +17451,15 @@ var _temp2 = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(ENTER_KEY, 'ENTER_KEY', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(ENTER_KEY, 'ENTER_KEY', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
 
-  __REACT_HOT_LOADER__.register(TAB_KEY, 'TAB_KEY', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(TAB_KEY, 'TAB_KEY', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
 
-  __REACT_HOT_LOADER__.register(BACKSPACE_KEY, 'BACKSPACE_KEY', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(BACKSPACE_KEY, 'BACKSPACE_KEY', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
 
-  __REACT_HOT_LOADER__.register(ReactTagsEditor, 'ReactTagsEditor', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(ReactTagsEditor, 'ReactTagsEditor', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
 }();
 
 ;
