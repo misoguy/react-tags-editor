@@ -17316,7 +17316,12 @@ var ReactTagsEditor = function (_Component) {
       var _state = this.state,
           tags = _state.tags,
           inputValue = _state.inputValue;
+      var onInsertTag = this.props.onInsertTag;
 
+      if (__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.isFunction(onInsertTag)) {
+        this.setState({ inputValue: '' });
+        return onInsertTag(inputValue, tags);
+      }
       this.setState({ tags: __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.concat(tags, inputValue), inputValue: '' });
     }
   }, {
@@ -17339,14 +17344,22 @@ var ReactTagsEditor = function (_Component) {
     key: '__handleDeleteLastTag__REACT_HOT_LOADER__',
     value: function __handleDeleteLastTag__REACT_HOT_LOADER__() {
       var tags = this.state.tags;
+      var onDeleteLastTag = this.props.onDeleteLastTag;
 
+      if (__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.isFunction(onDeleteLastTag)) {
+        return onDeleteLastTag();
+      }
       this.setState({ tags: __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.dropRight(tags) });
     }
   }, {
     key: '__handleDeleteTag__REACT_HOT_LOADER__',
     value: function __handleDeleteTag__REACT_HOT_LOADER__(index) {
       var tags = this.state.tags;
+      var onDeleteTag = this.props.onDeleteTag;
 
+      if (__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.isFunction(onDeleteTag)) {
+        return onDeleteTag(index);
+      }
       this.setState({ tags: __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.filter(tags, function (t, i) {
           return i !== index;
         }) });
@@ -17432,15 +17445,15 @@ ReactTagsEditor.propTypes = {
   delimiterChars: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].arrayOf(__WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string),
   className: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string,
   readOnly: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].bool,
-  placeholder: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string
+  placeholder: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string,
+  onInsertTag: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].func,
+  onDeleteTag: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].func,
+  onDeleteLastTag: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].func
 };
 ReactTagsEditor.defaultProps = {
-  tags: [],
   delimiterKeys: [ENTER_KEY, TAB_KEY],
-  delimiterChars: [],
   className: 'react-tags-editor',
-  readOnly: false,
-  placeholder: ''
+  readOnly: false
 };
 var _default = ReactTagsEditor;
 /* harmony default export */ __webpack_exports__["default"] = _default;
@@ -17451,15 +17464,15 @@ var _temp2 = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(ENTER_KEY, 'ENTER_KEY', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(ENTER_KEY, 'ENTER_KEY', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
 
-  __REACT_HOT_LOADER__.register(TAB_KEY, 'TAB_KEY', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(TAB_KEY, 'TAB_KEY', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
 
-  __REACT_HOT_LOADER__.register(BACKSPACE_KEY, 'BACKSPACE_KEY', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(BACKSPACE_KEY, 'BACKSPACE_KEY', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
 
-  __REACT_HOT_LOADER__.register(ReactTagsEditor, 'ReactTagsEditor', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(ReactTagsEditor, 'ReactTagsEditor', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
 }();
 
 ;

@@ -13,15 +13,15 @@ export default class ReactTagsEditor extends Component {
     className: PropTypes.string,
     readOnly: PropTypes.bool,
     placeholder: PropTypes.string,
+    onInsertTag: PropTypes.func,
+    onDeleteTag: PropTypes.func,
+    onDeleteLastTag: PropTypes.func,
   }
 
   static defaultProps = {
-    tags: [],
     delimiterKeys: [ENTER_KEY, TAB_KEY],
-    delimiterChars: [],
     className: 'react-tags-editor',
     readOnly: false,
-    placeholder: '',
   }
 
   state = {
@@ -39,6 +39,11 @@ export default class ReactTagsEditor extends Component {
 
   handleInsertTag = () => {
     const { tags, inputValue } = this.state;
+    const { onInsertTag } = this.props;
+    if (_.isFunction(onInsertTag)) {
+      this.setState({ inputValue: '' });
+      return onInsertTag(inputValue, tags);
+    }
     this.setState({ tags: _.concat(tags, inputValue), inputValue: '' });
   }
 
@@ -59,11 +64,19 @@ export default class ReactTagsEditor extends Component {
 
   handleDeleteLastTag = () => {
     const { tags } = this.state;
+    const { onDeleteLastTag } = this.props;
+    if (_.isFunction(onDeleteLastTag)) {
+      return onDeleteLastTag();
+    }
     this.setState({ tags: _.dropRight(tags) });
   }
 
   handleDeleteTag = (index) => {
     const { tags } = this.state;
+    const { onDeleteTag } = this.props;
+    if (_.isFunction(onDeleteTag)) {
+      return onDeleteTag(index);
+    }
     this.setState({ tags: _.filter(tags, (t, i) => i !== index) });
   }
 
