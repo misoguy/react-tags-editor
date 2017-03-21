@@ -22,8 +22,8 @@ class App extends Component {
     return (
       <div>
         <h1>React Tags Editor</h1>
-        <TagsEditor ref="tagsEditor"/>
-        <button onClick={() => alert(this.refs.tagsEditor.getTags())}>
+        <TagsEditor ref={c => { this.tagsEditor = c; }}/>
+        <button onClick={() => alert(this.tagsEditor.getTags())}>
           Get Tags
         </button>
       </div>
