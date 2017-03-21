@@ -13,8 +13,8 @@ class PropsWrapper extends Component {
     }, 2000);
   }
   handleGetTags = () => {
-    console.log(this.refs.component);
-    const t = this.refs.component.getTags();
+    console.log(this.component);
+    const t = this.component.getTags();
     console.log(t);
     this.setState({ t });
   }
@@ -36,7 +36,7 @@ class PropsWrapper extends Component {
     return (
       <div>
         <NewComponent
-          ref="component"
+          ref={(c) => { this.component = c; }}
           tags={this.state.tags}
           delimiterChars={[',']}
           placeholder={'test'}
