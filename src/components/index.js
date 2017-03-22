@@ -13,6 +13,8 @@ export default class ReactTagsEditor extends Component {
     className: PropTypes.string,
     readOnly: PropTypes.bool,
     placeholder: PropTypes.string,
+    regexValidation: PropTypes.string,
+    errorText: PropTypes.string,
     onInsertTag: PropTypes.func,
     onDeleteTag: PropTypes.func,
     onDeleteLastTag: PropTypes.func,
@@ -26,6 +28,7 @@ export default class ReactTagsEditor extends Component {
 
   state = {
     inputValue: '',
+    validator: !_.isNil(this.props.regexValidation) && new RegExp(this.props.regexValidation, 'g'),
     tags: this.props.tags || [],
   }
 
@@ -48,15 +51,26 @@ export default class ReactTagsEditor extends Component {
   }
 
   handleInputChange = (e) => {
+    const { validator } = this.state;
+    const { delimiterChars } = this.props;
     const inputValue = e.target.value;
+
     let shouldDelimit = false;
-    _.forEach(this.props.delimiterChars, (c) => {
+    let isValidate = true;
+
+    _.forEach(delimiterChars, (c) => {
       if (_.includes(inputValue, c)) {
         shouldDelimit = true;
         return false;
       }
     });
-    if (shouldDelimit) {
+
+    if (!_.isEmpty(inputValue) && _.isRegExp(validator) && !validator.test(inputValue)) {
+      isValidate = false;
+    }
+    this.setState({ inputError: !isValidate });
+
+    if (shouldDelimit && isValidate) {
       return this.handleInsertTag();
     }
     this.setState({ inputValue: e.target.value });
@@ -94,8 +108,8 @@ export default class ReactTagsEditor extends Component {
   }
 
   render() {
-    const { tags, inputValue } = this.state;
-    const { readOnly, placeholder } = this.props;
+    const { tags, inputValue, inputError } = this.state;
+    const { readOnly, placeholder, errorText } = this.props;
     if (readOnly) {
       return (
         <div className={this.props.className}>
@@ -130,6 +144,10 @@ export default class ReactTagsEditor extends Component {
           value={inputValue}
           placeholder={placeholder}
         />
+        {
+          inputError && errorText &&
+            <div className="react-tags-input-error">{errorText}</div>
+        }
       </div>
     );
   }

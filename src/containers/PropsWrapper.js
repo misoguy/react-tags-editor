@@ -39,6 +39,8 @@ class PropsWrapper extends Component {
           ref={(c) => { this.component = c; }}
           tags={this.state.tags}
           delimiterChars={[',']}
+          regexValidation="[a-zA-Z]"
+          errorText="You have an error!"
           placeholder={'test'}
           onInsertTag={this.handleInsertTag}
           onDeleteTag={this.handleDeleteTag}
