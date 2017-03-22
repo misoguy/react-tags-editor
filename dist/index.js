@@ -17270,6 +17270,7 @@ var ReactTagsEditor = function (_Component) {
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ReactTagsEditor.__proto__ || Object.getPrototypeOf(ReactTagsEditor)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       inputValue: '',
+      validator: !__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.isNil(_this.props.regexValidation) && new RegExp(_this.props.regexValidation, 'g'),
       tags: _this.props.tags || []
     }, _this.getTags = function () {
       var _this2;
@@ -17327,15 +17328,27 @@ var ReactTagsEditor = function (_Component) {
   }, {
     key: '__handleInputChange__REACT_HOT_LOADER__',
     value: function __handleInputChange__REACT_HOT_LOADER__(e) {
+      var validator = this.state.validator;
+      var delimiterChars = this.props.delimiterChars;
+
       var inputValue = e.target.value;
+
       var shouldDelimit = false;
-      __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.forEach(this.props.delimiterChars, function (c) {
+      var isValidate = true;
+
+      __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.forEach(delimiterChars, function (c) {
         if (__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.includes(inputValue, c)) {
           shouldDelimit = true;
           return false;
         }
       });
-      if (shouldDelimit) {
+
+      if (!__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.isEmpty(inputValue) && __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.isRegExp(validator) && !validator.test(inputValue)) {
+        isValidate = false;
+      }
+      this.setState({ inputError: !isValidate });
+
+      if (shouldDelimit && isValidate) {
         return this.handleInsertTag();
       }
       this.setState({ inputValue: e.target.value });
@@ -17386,10 +17399,12 @@ var ReactTagsEditor = function (_Component) {
 
       var _state2 = this.state,
           tags = _state2.tags,
-          inputValue = _state2.inputValue;
+          inputValue = _state2.inputValue,
+          inputError = _state2.inputError;
       var _props = this.props,
           readOnly = _props.readOnly,
-          placeholder = _props.placeholder;
+          placeholder = _props.placeholder,
+          errorText = _props.errorText;
 
       if (readOnly) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -17431,7 +17446,12 @@ var ReactTagsEditor = function (_Component) {
           onChange: this.handleInputChange,
           value: inputValue,
           placeholder: placeholder
-        })
+        }),
+        inputError && errorText && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'react-tags-input-error' },
+          errorText
+        )
       );
     }
   }]);
@@ -17446,6 +17466,8 @@ ReactTagsEditor.propTypes = {
   className: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string,
   readOnly: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].bool,
   placeholder: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string,
+  regexValidation: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string,
+  errorText: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].string,
   onInsertTag: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].func,
   onDeleteTag: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].func,
   onDeleteLastTag: __WEBPACK_IMPORTED_MODULE_0_react__["PropTypes"].func
@@ -17464,15 +17486,15 @@ var _temp2 = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(ENTER_KEY, 'ENTER_KEY', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(ENTER_KEY, 'ENTER_KEY', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
 
-  __REACT_HOT_LOADER__.register(TAB_KEY, 'TAB_KEY', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(TAB_KEY, 'TAB_KEY', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
 
-  __REACT_HOT_LOADER__.register(BACKSPACE_KEY, 'BACKSPACE_KEY', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(BACKSPACE_KEY, 'BACKSPACE_KEY', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
 
-  __REACT_HOT_LOADER__.register(ReactTagsEditor, 'ReactTagsEditor', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(ReactTagsEditor, 'ReactTagsEditor', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
 }();
 
 ;
