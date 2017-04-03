@@ -17276,26 +17276,30 @@ var ReactTagsEditor = function (_Component) {
       var _this2;
 
       return (_this2 = _this).__getTags__REACT_HOT_LOADER__.apply(_this2, arguments);
-    }, _this.handleInsertTag = function () {
+    }, _this.getInputValue = function () {
       var _this3;
 
-      return (_this3 = _this).__handleInsertTag__REACT_HOT_LOADER__.apply(_this3, arguments);
-    }, _this.handleInputChange = function () {
+      return (_this3 = _this).__getInputValue__REACT_HOT_LOADER__.apply(_this3, arguments);
+    }, _this.handleInsertTag = function () {
       var _this4;
 
-      return (_this4 = _this).__handleInputChange__REACT_HOT_LOADER__.apply(_this4, arguments);
-    }, _this.handleDeleteLastTag = function () {
+      return (_this4 = _this).__handleInsertTag__REACT_HOT_LOADER__.apply(_this4, arguments);
+    }, _this.handleInputChange = function () {
       var _this5;
 
-      return (_this5 = _this).__handleDeleteLastTag__REACT_HOT_LOADER__.apply(_this5, arguments);
-    }, _this.handleDeleteTag = function () {
+      return (_this5 = _this).__handleInputChange__REACT_HOT_LOADER__.apply(_this5, arguments);
+    }, _this.handleDeleteLastTag = function () {
       var _this6;
 
-      return (_this6 = _this).__handleDeleteTag__REACT_HOT_LOADER__.apply(_this6, arguments);
-    }, _this.handleKeyDown = function () {
+      return (_this6 = _this).__handleDeleteLastTag__REACT_HOT_LOADER__.apply(_this6, arguments);
+    }, _this.handleDeleteTag = function () {
       var _this7;
 
-      return (_this7 = _this).__handleKeyDown__REACT_HOT_LOADER__.apply(_this7, arguments);
+      return (_this7 = _this).__handleDeleteTag__REACT_HOT_LOADER__.apply(_this7, arguments);
+    }, _this.handleKeyDown = function () {
+      var _this8;
+
+      return (_this8 = _this).__handleKeyDown__REACT_HOT_LOADER__.apply(_this8, arguments);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -17310,6 +17314,11 @@ var ReactTagsEditor = function (_Component) {
     key: '__getTags__REACT_HOT_LOADER__',
     value: function __getTags__REACT_HOT_LOADER__() {
       return this.state.tags;
+    }
+  }, {
+    key: '__getInputValue__REACT_HOT_LOADER__',
+    value: function __getInputValue__REACT_HOT_LOADER__() {
+      return this.state.inputValue;
     }
   }, {
     key: '__handleInsertTag__REACT_HOT_LOADER__',
@@ -17346,12 +17355,15 @@ var ReactTagsEditor = function (_Component) {
       if (!__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.isEmpty(inputValue) && __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.isRegExp(validator) && !validator.test(inputValue)) {
         isValidate = false;
       }
-      this.setState({ inputError: !isValidate });
+
+      this.setState({
+        inputError: !isValidate,
+        inputValue: inputValue
+      });
 
       if (shouldDelimit && isValidate) {
         return this.handleInsertTag();
       }
-      this.setState({ inputValue: e.target.value });
     }
   }, {
     key: '__handleDeleteLastTag__REACT_HOT_LOADER__',
@@ -17395,7 +17407,7 @@ var ReactTagsEditor = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this8 = this;
+      var _this9 = this;
 
       var _state2 = this.state,
           tags = _state2.tags,
@@ -17432,7 +17444,7 @@ var ReactTagsEditor = function (_Component) {
               {
                 className: 'react-tags-close-btn',
                 onClick: function onClick() {
-                  return _this8.handleDeleteTag(index);
+                  return _this9.handleDeleteTag(index);
                 }
               },
               'x'
@@ -17486,15 +17498,15 @@ var _temp2 = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(ENTER_KEY, 'ENTER_KEY', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(ENTER_KEY, 'ENTER_KEY', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
 
-  __REACT_HOT_LOADER__.register(TAB_KEY, 'TAB_KEY', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(TAB_KEY, 'TAB_KEY', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
 
-  __REACT_HOT_LOADER__.register(BACKSPACE_KEY, 'BACKSPACE_KEY', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(BACKSPACE_KEY, 'BACKSPACE_KEY', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
 
-  __REACT_HOT_LOADER__.register(ReactTagsEditor, 'ReactTagsEditor', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(ReactTagsEditor, 'ReactTagsEditor', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/yun/Projects/react-tags-editor/src/components/index.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/soojae/Documents/react-tags-editor/src/components/index.js');
 }();
 
 ;

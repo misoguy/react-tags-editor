@@ -40,6 +40,8 @@ export default class ReactTagsEditor extends Component {
 
   getTags = () => this.state.tags;
 
+  getInputValue = () => this.state.inputValue;
+
   handleInsertTag = () => {
     const { tags, inputValue } = this.state;
     const { onInsertTag } = this.props;
@@ -68,12 +70,15 @@ export default class ReactTagsEditor extends Component {
     if (!_.isEmpty(inputValue) && _.isRegExp(validator) && !validator.test(inputValue)) {
       isValidate = false;
     }
-    this.setState({ inputError: !isValidate });
+
+    this.setState({
+      inputError: !isValidate,
+      inputValue,
+    });
 
     if (shouldDelimit && isValidate) {
       return this.handleInsertTag();
     }
-    this.setState({ inputValue: e.target.value });
   }
 
   handleDeleteLastTag = () => {

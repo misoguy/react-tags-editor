@@ -32,6 +32,9 @@ class PropsWrapper extends Component {
     console.log('props');
     this.setState({ tags: _.dropRight(this.state.tags) });
   }
+  handleTest = () => {
+    console.log(this.component.getInputValue());
+  }
   render() {
     return (
       <div>
@@ -48,6 +51,7 @@ class PropsWrapper extends Component {
         />
         {/* readOnly={true}*/}
         <button onClick={this.handleGetTags}>TEST</button>
+        <button onClick={this.handleTest}>TEST button</button>
         {this.state.t}
       </div>
     );
