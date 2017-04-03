@@ -40,7 +40,13 @@ export default class ReactTagsEditor extends Component {
 
   getTags = () => this.state.tags;
 
-  getInputValue = () => this.state.inputValue;
+  getInputValue = (clearInputValue) => {
+    const { inputValue } = this.state;
+    if (!_.isEmpty(inputValue) && clearInputValue) {
+      this.setState({ inputValue: '' });
+    }
+    return inputValue;
+  }
 
   handleInsertTag = () => {
     const { tags, inputValue } = this.state;

@@ -17317,8 +17317,13 @@ var ReactTagsEditor = function (_Component) {
     }
   }, {
     key: '__getInputValue__REACT_HOT_LOADER__',
-    value: function __getInputValue__REACT_HOT_LOADER__() {
-      return this.state.inputValue;
+    value: function __getInputValue__REACT_HOT_LOADER__(clearInputValue) {
+      var inputValue = this.state.inputValue;
+
+      if (!__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.isEmpty(inputValue) && clearInputValue) {
+        this.setState({ inputValue: '' });
+      }
+      return inputValue;
     }
   }, {
     key: '__handleInsertTag__REACT_HOT_LOADER__',
